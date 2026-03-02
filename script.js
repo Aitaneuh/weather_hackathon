@@ -37,5 +37,21 @@ function setDestination(destination) {
     }
   });
 }
+
+window.addEventListener('DOMContentLoaded', async () => {
+  try {
+    const response = await fetch('/api/me');
+
+    if (response.ok) {
+      const user = await response.json();
+      document.getElementById('user-name').textContent = `${user.firstname} ${user.lastname}`;
+    } else {
+      window.location.href = '/user/login';
+    }
+  } catch (error) {
+    console.error("Erreur lors de la récupération du profil:", error);
+  }
+});
+
 search_btn.addEventListener("click", loadNewDestination)
 setDestination('moutier')
